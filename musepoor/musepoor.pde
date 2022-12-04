@@ -3,6 +3,9 @@
 import processing.sound.*; // import sine wave library
 SinOsc sine;
 
+int note_length = 450; // How long to hold notes, in milliseconds
+int note_spacing = 10; // How long between notes, in milliseconds
+
 PImage treble;
 PImage time_sig;
 
@@ -186,8 +189,8 @@ void playsong(float[] array) {
   for(int i = 0; i < array.length; i++) {
     sine.play();
     sine.freq(array[i]);
-    delay(450);
+    delay(note_length);
     sine.stop();
-    delay(5);
+    delay(note_spacing);
   }
 }
