@@ -7,7 +7,7 @@ PImage treble;
 PImage time_sig;
 
 PFont Edwin; 
-String songTitle = "MusePoor";
+String title = "MusePoor";
 
 // Set up note names and their corresponding frequencies
 String[] note_names = {"c3", "c#3", "d3", "d#3", "e3", "f3", "f#3", "g3", "g#3", "a3", "a#3", "b3", "c4",  "c#4", "d4", "d#4", "e4", "f4", "f#4", "g4", "g#4", "a4", "a#4", "b4", "c5", "c#5", "d5", "d#5", "e5", "f5", "f#5", "g5", "g#5", "a5"};
@@ -39,7 +39,9 @@ void draw() {
   
   // Play button
   fill(240);
+  stroke(0);
   circle(width/2, 140, 40);
+  stroke(0, 0, 255);
   fill(212, 232, 255);
   triangle(394, 127, 394, 152, 413, 140); 
   
@@ -48,13 +50,31 @@ void draw() {
       playsong(usr_notes);  // Play the user's song
     }
   }
-
+  
+  // Clear button
+  stroke(0);
+  fill(250);
+  rect(100, 122, 60, 35, 10);
+  noStroke();
+  fill(0);
+  textSize(15);
+  text("Clear", 130, 144);
+  
+  if(mouseX > 100 && mouseX < 160 && mouseY > 122 && mouseY < 157) {
+    if(mousePressed) {
+      usr_notes = new float[1];
+      usr_notes[0] = 0.0;
+      usr_note_pos = new float[1];
+      usr_note_pos[0] = 1000;
+    }
+  }
+  
   // Title
   fill(0);
   textSize(40);
   textFont(Edwin);
   textAlign(CENTER);
-  text(songTitle, width/2, 60);
+  text(title, width/2, 60);
   
   image(treble, -40, 185, 137, 86);
   image(time_sig, 50, 200, 22, 50);
@@ -63,7 +83,10 @@ void draw() {
   bars(5, 200, 790, 50, 5);
   
   // Get the right note as determined by the user
-  if(mouseY > 0 && mouseY < 197) {
+  if(mouseY >0 && mouseY < 190) {
+    noteY = 1000;
+  }
+  else if(mouseY > 180 && mouseY < 197) {
     noteY = 195;
     current_freq = "g5";
   }
@@ -103,9 +126,12 @@ void draw() {
     noteY = 250;
     current_freq = "e4";
   }
-  else if(mouseY > 254 && mouseY < height) {
+  else if(mouseY > 254 && mouseY < 260) {
     noteY = 256;
     current_freq = "d4";
+  }
+  else if(mouseY > 270) {
+    noteY = 1000;
   }
   println(current_freq);
  
@@ -162,6 +188,6 @@ void playsong(float[] array) {
     sine.freq(array[i]);
     delay(450);
     sine.stop();
-    delay(0);
+    delay(5);
   }
 }
