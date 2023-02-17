@@ -93,6 +93,10 @@ void draw()
   bars(5, 200, 790, 50, 5);
   
   // Get the right note as determined by the user
+  
+  // Haha someone doesn't know how to code
+  
+  // srsly wut is this
   if(mouseY >0 && mouseY < 190) 
   {
     noteY = 1000;
